@@ -51,8 +51,8 @@ Represents a trading account associated with a specific trader. Contains key inf
 
 | Field            | Type                           | Description                                                        |
 |------------------|--------------------------------|--------------------------------------------------------------------|
-| id               | object ( YftManagerApiIdFull ) | Unique identifier of the account.                                  |
-| trader_id        | object ( YftManagerApiIdFull ) | Identifier of the trader owning this account.                      |
+| id               | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Unique identifier of the account.                                  |
+| trader_id        | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Identifier of the trader owning this account.                      |
 | currency         | string                         | Currency code (e.g. USD, EUR) for account balance.                 |
 | balance          | number                         | Current balance of the account.                                    |
 | equity           | number                         | Total equity (balance adjusted by open P&L).                       |
@@ -125,14 +125,14 @@ Represents a single operation that affected a trading account's balance — such
 | Field                  | Type                           | Description                                                             |
 |------------------------|--------------------------------|-------------------------------------------------------------------------|
 | id                     | string                         | Unique identifier for this operation.                                   |
-| trader_id              | object ( YftManagerApiIdFull ) | ID of the trader who owns the affected account.                         |
-| account_id             | object ( YftManagerApiIdFull ) | ID of the account that was modified.                                    |
+| trader_id              | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of the trader who owns the affected account.                         |
+| account_id             | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of the account that was modified.                                    |
 | reason                 | string  enum                   | Type of operation:  trading ,  deposit ,  withdrawal ,  transfer , etc. |
-| process_id             | object ( YftManagerApiIdFull ) | Optional identifier of the process that performed the update.           |
+| process_id             | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Optional identifier of the process that performed the update.           |
 | delta                  | float                          | The amount the balance was adjusted by (positive or negative).          |
 | date                   | integer  (timestamp)           | Timestamp of when the operation occurred (UNIX epoch, milliseconds).    |
 | comment                | string | null                  | Optional comment or metadata.                                           |
-| reference_operation_id | object ( YftManagerApiIdFull ) | ID of another operation this one refers to, if linked.                  |
+| reference_operation_id | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of another operation this one refers to, if linked.                  |
 
 ---
 
@@ -180,7 +180,7 @@ Used in `calculate_updates` events to reflect changes in account-level metrics s
 
 | Field        | Type                           | Description                                           |
 |--------------|--------------------------------|-------------------------------------------------------|
-| account_id   | object ( YftManagerApiIdFull ) | Unique identifier of the account.                     |
+| account_id   | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Unique identifier of the account.                     |
 | margin       | number                         | Currently used margin for the account.                |
 | equity       | number                         | Current account equity.                               |
 | free_margin  | number                         | Funds available for trading or margin use.            |
@@ -448,9 +448,9 @@ It includes information such as order metadata, bid/ask prices used in different
 
 | Field         | Type                           | Description                                              |
 |---------------|--------------------------------|----------------------------------------------------------|
-| id            | object ( YftManagerApiIdFull ) | Unique identifier of the position.                       |
-| trader_id     | object ( YftManagerApiIdFull ) | ID of the trader who owns the position.                  |
-| account_id    | object ( YftManagerApiIdFull ) | ID of the account associated with the position.          |
+| id            | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Unique identifier of the position.                       |
+| trader_id     | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of the trader who owns the position.                  |
+| account_id    | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of the account associated with the position.          |
 | asset_pair    | string                         | Traded asset pair (e.g. "EURUSD").                       |
 | collateral    | string                         | Collateral currency used (e.g. "USD").                   |
 | lots_amount   | float                          | Total number of lots.                                    |
@@ -458,7 +458,7 @@ It includes information such as order metadata, bid/ask prices used in different
 | sl_price      | float  (opt)                   | Stop-loss price, if set.                                 |
 | tp_price      | float  (opt)                   | Take-profit price, if set.                               |
 | metadata      | object                         | Arbitrary key-value data.                                |
-| order_id      | object ( YftManagerApiIdFull ) | Identifier of the opening order.                         |
+| order_id      | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Identifier of the opening order.                         |
 | pl            | number                         | Current profit or loss calculated.                       |
 | margin_bidask | ManagerApiBidAsk               | Bid/ask used for margin calculation.                     |
 | open_bidask   | ManagerApiBidAsk               | Price when the position was opened.                      |
@@ -498,12 +498,12 @@ Each trade corresponds to a single execution event and contains details about th
 
 | Field             | Type                                  | Description                                                  |
 |-------------------|---------------------------------------|--------------------------------------------------------------|
-| id                | object ( YftManagerApiIdFull )        | Unique identifier of the trade.                              |
-| trader_id         | object ( YftManagerApiIdFull )        | Identifier of the trader who executed the trade.             |
-| account_id        | object ( YftManagerApiIdFull )        | Identifier of the trading account used for the trade.        |
+| id                | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) )        | Unique identifier of the trade.                              |
+| trader_id         | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) )        | Identifier of the trader who executed the trade.             |
+| account_id        | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) )        | Identifier of the trading account used for the trade.        |
 | asset_pair        | string                                | Identifier of the traded asset pair (e.g.  "ETHUSD" ).       |
-| order_id          | object ( YftManagerApiIdFull )        | Identifier of the order that triggered this trade.           |
-| position_id       | object ( YftManagerApiIdFull )
+| order_id          | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) )        | Identifier of the order that triggered this trade.           |
+| position_id       | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) )
  (opt) | Identifier of the associated position, if applicable.        |
 | price             | number                                | Executed price of the trade.                                 |
 | pl                | number                                | Realized profit or loss (PL) from this trade.                |
@@ -561,8 +561,8 @@ Used in `calculate_updates` events to reflect real-time profit/loss changes.
 
 | Field       | Type                           | Description                             |
 |-------------|--------------------------------|-----------------------------------------|
-| account_id  | object ( YftManagerApiIdFull ) | ID of the account owning this position. |
-| position_id | object ( YftManagerApiIdFull ) | Unique identifier of the position.      |
+| account_id  | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | ID of the account owning this position. |
+| position_id | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Unique identifier of the position.      |
 | gross_pl    | number                         | Gross profit or loss of the position.   |
 
 # ManagerApiTradingInstrument
@@ -734,9 +734,9 @@ Represents a trading order submitted by a trader, including its type, status, an
 
 | Field         | Type                           | Description                                                                                                |
 |---------------|--------------------------------|------------------------------------------------------------------------------------------------------------|
-| id            | object ( YftManagerApiIdFull ) | Unique identifier of the order.                                                                            |
-| trader_id     | object ( YftManagerApiIdFull ) | Identifier of the trader who created the order.                                                            |
-| account_id    | object ( YftManagerApiIdFull ) | Identifier of the account associated with the order.                                                       |
+| id            | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Unique identifier of the order.                                                                            |
+| trader_id     | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Identifier of the trader who created the order.                                                            |
+| account_id    | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Identifier of the account associated with the order.                                                       |
 | asset_pair    | string                         | Identifier of the traded asset pair (e.g. "EURUSD").                                                       |
 | collateral    | string                         | Collateral currency for the order (e.g. "USD").                                                            |
 | lots_amount   | number (f64)                   | Number of lots requested in the order.                                                                     |
@@ -750,7 +750,7 @@ See  ManagerApiOrderType                                  |
 | update_date   | integer (timestamp)            | Timestamp of the most recent update (milliseconds since epoch)                                             |
 | desired_price | number (f64)                   | Desired price for execution (used for  limit  or  stop  orders only).                                      |
 | order_status  | ManagerApiOrderStatus          | Current status of the order (e.g. Pending, Canceled, Executed, Rejected).                                  |
-| position_id   | object ( YftManagerApiIdFull ) | Identifier of the trader's position associated with this order after execution, if any.                    |
+| position_id   | object ( [YftManagerApiIdFull](#yftmanagerapiidfull) ) | Identifier of the trader's position associated with this order after execution, if any.                    |
 | is_close      | bool                           | is_close  — flag indicating the order is created to close an existing position, not to open or modify one. |
 
 # ManagerApiOrderType
