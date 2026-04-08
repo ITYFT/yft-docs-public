@@ -28,19 +28,19 @@ message TradingInstrumentGrpcModel {
 
 | Order | Name            | Description                                                |
 |-------|-----------------|------------------------------------------------------------|
-| 1     | Name            | The name of the trading instrument (e.g., EUR/USD).        |
-| 2     | Digits          | Number of decimal places for instrument prices.            |
-| 3     | Base            | The base currency of the instrument.                       |
-| 4     | Quote           | The quote currency of the instrument.                      |
-| 5     | TickSize        | Minimum price increment for the instrument.                |
-| 6     | SwapScheduleId  | ID of the swap schedule (optional).                        |
-| 7     | GroupId         | ID of the instrument group (optional).                     |
-| 8     | Weight          | Weight of the instrument for processing (optional).        |
-| 9     | DayTimeout      | Day trading session timeout (optional).                    |
-| 10    | NightTimeout    | Night trading session timeout (optional).                  |
-| 11    | TradingDisabled | Indicates whether trading is disabled for this instrument. |
-| 12    | LotSize         | The standard lot size for this instrument.                 |
-| 13    | DaysOff         | List of trading session days off.                          |
+| 1     | `Name`            | The name of the trading instrument (e.g., EUR/USD).        |
+| 2     | `Digits`          | Number of decimal places for instrument prices.            |
+| 3     | `Base`            | The base currency of the instrument.                       |
+| 4     | `Quote`           | The quote currency of the instrument.                      |
+| 5     | `TickSize`        | Minimum price increment for the instrument.                |
+| 6     | `SwapScheduleId`  | ID of the swap schedule (optional).                        |
+| 7     | `GroupId`         | ID of the instrument group (optional).                     |
+| 8     | `Weight`          | Weight of the instrument for processing (optional).        |
+| 9     | `DayTimeout`      | Day trading session timeout (optional).                    |
+| 10    | `NightTimeout`    | Night trading session timeout (optional).                  |
+| 11    | `TradingDisabled` | Indicates whether trading is disabled for this instrument. |
+| 12    | `LotSize`         | The standard lot size for this instrument.                 |
+| 13    | `DaysOff`         | List of trading session days off.                          |
 
 ---
 
@@ -61,10 +61,10 @@ message TradingInstrumentDayOffGrpcModel {
 
 | Order | Name     | Description                                       |
 |-------|----------|---------------------------------------------------|
-| 1     | DowFrom  | Start day of the week (0 = Sunday, 6 = Saturday). |
-| 2     | TimeFrom | Start time for the day off (HH:mm format).        |
-| 3     | DowTo    | End day of the week.                              |
-| 4     | TimeTo   | End time for the day off (HH:mm format).          |
+| 1     | `DowFrom`  | Start day of the week (0 = Sunday, 6 = Saturday). |
+| 2     | `TimeFrom` | Start time for the day off (HH:mm format).        |
+| 3     | `DowTo`    | End day of the week.                              |
+| 4     | `TimeTo`   | End time for the day off (HH:mm format).          |
 
 ---
 
@@ -87,12 +87,12 @@ message TradingGroupGrpcModel {
 
 | Order | Name             | Description                                      |
 |-------|------------------|--------------------------------------------------|
-| 1     | Id               | Unique identifier for the trading group.         |
-| 2     | Name             | Name of the trading group.                       |
-| 3     | TradingProfileId | ID of the associated trading profile.            |
-| 4     | MarkupProfileId  | ID of the associated markup profile (optional).  |
-| 5     | SwapProfileId    | ID of the associated swap profile.               |
-| 6     | TradingDisabled  | Indicates if trading is disabled for this group. |
+| 1     | `Id`               | Unique identifier for the trading group.         |
+| 2     | `Name`             | Name of the trading group.                       |
+| 3     | `TradingProfileId` | ID of the associated trading profile.            |
+| 4     | `MarkupProfileId`  | ID of the associated markup profile (optional).  |
+| 5     | `SwapProfileId`    | ID of the associated swap profile.               |
+| 6     | `TradingDisabled`  | Indicates if trading is disabled for this group. |
 
 ---
 
@@ -119,16 +119,16 @@ message TradingProfileGrpcModel {
 
 | Order | Name                   | Description                                         |
 |-------|------------------------|-----------------------------------------------------|
-| 1     | Id                     | Unique identifier for the trading profile.          |
-| 2     | StopOutPercent         | Stop-out percentage for this profile.               |
-| 3     | IsABook                | Indicates if this profile uses A-Book execution.    |
-| 4     | MarginCallPercent      | Margin call percentage (optional).                  |
-| 5     | Instruments            | List of associated instruments with their settings. |
-| 6     | Leverages              | List of available leverage levels for this profile. |
-| 7     | CollateralCurrencies   | Currencies used as collateral.                      |
-| 8     | InitialDeposit         | Minimum initial deposit required.                   |
-| 9     | HedgeMarginCoefficient | Hedge margin coefficient for this profile.          |
-| 10    | CommissionPerLot       | Commission per lot traded (optional).               |
+| 1     | `Id`                     | Unique identifier for the trading profile.          |
+| 2     | `StopOutPercent`         | Stop-out percentage for this profile.               |
+| 3     | `IsABook`                | Indicates if this profile uses A-Book execution.    |
+| 4     | `MarginCallPercent`      | Margin call percentage (optional).                  |
+| 5     | `Instruments`            | List of associated instruments with their settings. |
+| 6     | `Leverages`              | List of available leverage levels for this profile. |
+| 7     | `CollateralCurrencies`   | Currencies used as collateral.                      |
+| 8     | `InitialDeposit`         | Minimum initial deposit required.                   |
+| 9     | `HedgeMarginCoefficient` | Hedge margin coefficient for this profile.          |
+| 10    | `CommissionPerLot`       | Commission per lot traded (optional).               |
 
 ---
 

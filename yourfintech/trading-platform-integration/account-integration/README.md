@@ -29,24 +29,24 @@ message AccountGrpcModel {
 
 **Fields:**
 
-| Order | Name                | Description                                           |
-|-------|---------------------|-------------------------------------------------------|
-| 1     | Id                  | Unique identifier of the account.                     |
-| 2     | TraderId            | Identifier of the trader associated with the account. |
-| 3     | Currency            | Currency of the account (e.g., USD, EUR).             |
-| 4     | Balance             | Current balance of the account.                       |
-| 5     | Equity              | Equity of the account.                                |
-| 6     | Margin              | Margin being used by the account.                     |
-| 7     | TradingDisabled     | Indicates if trading is disabled for this account.    |
-| 8     | Leverage            | Leverage applied to the account.                      |
-| 9     | FreeMargin          | Free margin available in the account.                 |
-| 10    | MarginLvl           | Margin level of the account.                          |
-| 11    | TradingGroup        | The trading group this account belongs to.            |
-| 12    | DateCreate          | Timestamp of account creation (Unix ms).              |
-| 13    | DateUpdate          | Last update timestamp of the account (Unix ms).       |
-| 14    | CreateProcessId     | Process ID used to create the account.                |
-| 15    | LastUpdateProcessId | Process ID of the last update made to the account.    |
-| 16    | Metadata            | Additional key-value pairs with extra information.    |
+| Order | Name                    | Description                                           |
+| ----- | ----------------------- | ----------------------------------------------------- |
+| 1     | `Id`                    | Unique identifier of the account.                     |
+| 2     | `TraderId`              | Identifier of the trader associated with the account. |
+| 3     | `Currency`              | Currency of the account (e.g., USD, EUR).             |
+| 4     | `Balance`               | Current balance of the account.                       |
+| 5     | `Equity`                | Equity of the account.                                |
+| 6     | `Margin`                | Margin being used by the account.                     |
+| 7     | `TradingDisabled`       | Indicates if trading is disabled for this account.    |
+| 8     | `Leverage`              | Leverage applied to the account.                      |
+| 9     | `FreeMargin`            | Free margin available in the account.                 |
+| 10    | `MarginLvl`             | Margin level of the account.                          |
+| 11    | `TradingGroup`          | The trading group this account belongs to.            |
+| 12    | `DateCreate`            | Timestamp of account creation (Unix ms).              |
+| 13    | `DateUpdate`            | Last update timestamp of the account (Unix ms).       |
+| 14    | `CreateProcessId`       | Process ID used to create the account.                |
+| 15    | `LastUpdateProcessId`   | Process ID of the last update made to the account.    |
+| 16    | `Metadata`              | Additional key-value pairs with extra information.    |
 
 ---
 
@@ -67,14 +67,14 @@ enum UpdateBalanceReason {
 
 **Fields:**
 
-| Order | Name               | Description                                |
-|-------|--------------------|--------------------------------------------|
-| 0     | TradingResult      | Balance changes due to trading activities. |
-| 1     | BalanceCorrection  | Manual corrections to the account balance. |
-| 2     | Deposit            | Funds deposited into the account.          |
-| 3     | Withdrawal         | Funds withdrawn from the account.          |
-| 4     | WithdrawalCanceled | Canceled withdrawal operation.             |
-| 5     | Commission         | Deductions due to commissions.             |
+| Order | Name                  | Description                                |
+| ----- | --------------------- | ------------------------------------------ |
+| 0     | `TradingResult`       | Balance changes due to trading activities. |
+| 1     | `BalanceCorrection`   | Manual corrections to the account balance. |
+| 2     | `Deposit`             | Funds deposited into the account.          |
+| 3     | `Withdrawal`          | Funds withdrawn from the account.          |
+| 4     | `WithdrawalCanceled`  | Canceled withdrawal operation.             |
+| 5     | `Commission`          | Deductions due to commissions.             |
 
 ---
 
@@ -98,17 +98,17 @@ enum AccountsIntegrationOperationCode {
 
 **Fields:**
 
-| Order | Name                       | Description                                                  |
-|-------|----------------------------|--------------------------------------------------------------|
-| 0     | Ok                         | Operation was successful.                                    |
-| 1     | AccountNotFound            | The account was not found.                                   |
-| 2     | TraderNotFound             | The trader associated with the operation was not found.      |
-| 3     | NotEnoughBalance           | Insufficient balance for the operation.                      |
-| 4     | ProcessIdDuplicate         | The provided process ID already exists.                      |
-| 5     | CollateralCurrencyNotFound | Collateral currency not found.                               |
-| 6     | InvalidLeverage            | The specified leverage is invalid.                           |
-| 7     | TradingGroupNotFound       | The trading group associated with the account was not found. |
-| 8     | TradingProfileNotFound     | The trading profile was not found.                           |
+| Order | Name                           | Description                                                  |
+| ----- | ------------------------------ | ------------------------------------------------------------ |
+| 0     | `Ok`                           | Operation was successful.                                    |
+| 1     | `AccountNotFound`              | The account was not found.                                   |
+| 2     | `TraderNotFound`               | The trader associated with the operation was not found.      |
+| 3     | `NotEnoughBalance`             | Insufficient balance for the operation.                      |
+| 4     | `ProcessIdDuplicate`           | The provided process ID already exists.                      |
+| 5     | `CollateralCurrencyNotFound`   | Collateral currency not found.                               |
+| 6     | `InvalidLeverage`              | The specified leverage is invalid.                           |
+| 7     | `TradingGroupNotFound`         | The trading group associated with the account was not found. |
+| 8     | `TradingProfileNotFound`       | The trading profile was not found.                           |
 
 ---
 
@@ -130,15 +130,15 @@ message CreateAccountGrpcRequest {
 }
 ```
 
-| Order | Name         | Description                                     |
-|-------|--------------|-------------------------------------------------|
-| 1     | TraderId     | Identifier of the trader who owns the account.  |
-| 2     | AccountId    | Unique identifier for the account.              |
-| 3     | Leverage     | Leverage ratio applied to the account.          |
-| 4     | Currency     | Currency code for the account (e.g., USD, EUR). |
-| 5     | ProcessId    | Unique process identifier for the operation.    |
-| 6     | TradingGroup | Group the account is associated with.           |
-| 7     | Metadata     | Key-value pairs for additional data.            |
+| Order | Name             | Description                                     |
+| ----- | ---------------- | ----------------------------------------------- |
+| 1     | `TraderId`       | Identifier of the trader who owns the account.  |
+| 2     | `AccountId`      | Unique identifier for the account.              |
+| 3     | `Leverage`       | Leverage ratio applied to the account.          |
+| 4     | `Currency`       | Currency code for the account (e.g., USD, EUR). |
+| 5     | `ProcessId`      | Unique process identifier for the operation.    |
+| 6     | `TradingGroup`   | Group the account is associated with.           |
+| 7     | `Metadata`       | Key-value pairs for additional data.            |
 
 ---
 
@@ -153,10 +153,10 @@ message CreateAccountGrpcResponse {
 }
 ```
 
-| Order | Name    | Description                                |
-|-------|---------|--------------------------------------------|
-| 1     | Code    | Operation result ( Ok  if successful).     |
-| 2     | Account | Account details if creation is successful. |
+| Order | Name        | Description                                    |
+| ----- | ----------- | ---------------------------------------------- |
+| 1     | `Code`      | Operation result (`Ok` if successful).         |
+| 2     | `Account`   | Account details if creation is successful.     |
 
 ---
 
@@ -171,10 +171,10 @@ message GetAccountsGrpcRequest {
 }
 ```
 
-| Order | Name      | Description                    |
-|-------|-----------|--------------------------------|
-| 1     | TraderId  | Optional filter by trader ID.  |
-| 2     | AccountId | Optional filter by account ID. |
+| Order | Name          | Description                    |
+| ----- | ------------- | ------------------------------ |
+| 1     | `TraderId`    | Optional filter by trader ID.  |
+| 2     | `AccountId`   | Optional filter by account ID. |
 
 ---
 
@@ -195,16 +195,16 @@ message UpdateAccountBalanceGrpcRequest {
 }
 ```
 
-| Order | Name                   | Description                                                |
-|-------|------------------------|------------------------------------------------------------|
-| 1     | TraderId               | Identifier of the trader associated with the account.      |
-| 2     | AccountId              | Identifier of the account being updated.                   |
-| 3     | Delta                  | Amount to add or subtract from the account balance.        |
-| 4     | Comment                | Optional comment or note for the operation.                |
-| 5     | ProcessId              | Unique process identifier for the balance update.          |
-| 6     | AllowNegativeBalance   | Whether negative balances are allowed for the operation.   |
-| 7     | Reason                 | Reason for the balance update (see  UpdateBalanceReason ). |
-| 8     | ReferenceTransactionId | Reference to a related transaction, if applicable.         |
+| Order | Name                       | Description                                                        |
+| ----- | -------------------------- | ------------------------------------------------------------------ |
+| 1     | `TraderId`                 | Identifier of the trader associated with the account.              |
+| 2     | `AccountId`                | Identifier of the account being updated.                           |
+| 3     | `Delta`                    | Amount to add or subtract from the account balance.                |
+| 4     | `Comment`                  | Optional comment or note for the operation.                        |
+| 5     | `ProcessId`                | Unique process identifier for the balance update.                  |
+| 6     | `AllowNegativeBalance`     | Whether negative balances are allowed for the operation.           |
+| 7     | `Reason`                   | Reason for the balance update (see `UpdateBalanceReason`).         |
+| 8     | `ReferenceTransactionId`   | Reference to a related transaction, if applicable.                 |
 
 ---
 
@@ -220,11 +220,11 @@ message UpdateAccountBalanceGrpcResponse {
 }
 ```
 
-| Order | Name        | Description                                    |
-|-------|-------------|------------------------------------------------|
-| 1     | Result      | Operation result ( Ok  if successful).         |
-| 2     | OperationId | Optional identifier for the balance operation. |
-| 3     | Account     | Account details after the balance update.      |
+| Order | Name            | Description                                    |
+| ----- | --------------- | ---------------------------------------------- |
+| 1     | `Result`        | Operation result (`Ok` if successful).         |
+| 2     | `OperationId`   | Optional identifier for the balance operation. |
+| 3     | `Account`       | Account details after the balance update.      |
 
 ---
 
@@ -239,20 +239,18 @@ message UpdateAccountGrpcRequest {
     optional bool TradingDisabled = 3;
     optional string TradingGroup = 4;
     optional double Leverage = 5;
-    string ProcessId = 
-
-6;
+    string ProcessId = 6;
 }
 ```
 
-| Order | Name            | Description                                           |
-|-------|-----------------|-------------------------------------------------------|
-| 1     | TraderId        | Identifier of the trader.                             |
-| 2     | AccountId       | Identifier of the account to update.                  |
-| 3     | TradingDisabled | Optional: Disable or enable trading on the account.   |
-| 4     | TradingGroup    | Optional: Update the trading group of the account.    |
-| 5     | Leverage        | Optional: Update the leverage applied to the account. |
-| 6     | ProcessId       | Unique process ID for the operation.                  |
+| Order | Name                | Description                                           |
+| ----- | ------------------- | ----------------------------------------------------- |
+| 1     | `TraderId`          | Identifier of the trader.                             |
+| 2     | `AccountId`         | Identifier of the account to update.                  |
+| 3     | `TradingDisabled`   | Optional: Disable or enable trading on the account.   |
+| 4     | `TradingGroup`      | Optional: Update the trading group of the account.    |
+| 5     | `Leverage`          | Optional: Update the leverage applied to the account. |
+| 6     | `ProcessId`         | Unique process ID for the operation.                  |
 
 ---
 
@@ -267,10 +265,10 @@ message UpdateAccountGrpcResponse {
 }
 ```
 
-| Order | Name    | Description                            |
-|-------|---------|----------------------------------------|
-| 1     | Result  | Operation result ( Ok  if successful). |
-| 2     | Account | Updated account details.               |
+| Order | Name        | Description                            |
+| ----- | ----------- | -------------------------------------- |
+| 1     | `Result`    | Operation result (`Ok` if successful). |
+| 2     | `Account`   | Updated account details.               |
 
 ---
 
@@ -292,8 +290,6 @@ service AccountsIntegrationGrpcService {
 - `UpdateAccountBalance`: Updates the balance of an account.
 - `UpdateAccount`: Modifies account settings.
 - `Ping`: Health check for the service.
-
----
 
 ---
 
