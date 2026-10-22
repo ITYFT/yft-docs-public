@@ -1012,33 +1012,18 @@ Ideal for fast action in volatile markets, profit securing, or loss control.
 - Keep chart uncluttered by hiding unnecessary positions
 - Use Position History tab for journaling or export data
 
-## Double Up, Reverse Position & Partial Close
+## Reverse Position & Partial Close
 
 ### What Are These Actions?
 
 These advanced tools give you more flexibility in managing open positions without needing to open new trades manually. They're ideal for active traders who want fast reaction tools during volatile moves or strategy shifts.
 
-→ Think of these as "power tools" for live trade management - double down, flip your bias, or scale out.
+→ Think of these as "power tools" for live trade management - flip your bias, or scale out.
 
 They live on the position row, in the **Action** column. Expand a grouped position to reach
 the controls for an individual position.
 
 ![Position row actions](./images/position-row-actions.png)
-
-### Double Up
-
-Instantly double your current position size at the current market price.
-
-- If you're long 1.00 lot EUR/USD, Double Up will instantly open an additional 1.00 lot long at market.
-- Works for both Buy and Sell positions
-- New position is opened separately, added to your existing exposure
-- Margin requirements are recalculated based on the increased total size
-
-Use when:
-
-- You're confident in momentum continuing
-- You want to increase exposure mid-move
-- You're scaling into a breakout or trend
 
 ### Reverse Position
 
@@ -1106,7 +1091,6 @@ layout for the partial close dialog.
 ### Tips
 
 - Use Partial Close + Trailing Stop for dynamic position management
-- Combine Double Up with locked SL to maintain fixed risk
 - When using Reverse, always reassess your margin availability
 
 ## Markets & Pricing
