@@ -257,6 +257,8 @@ backwards.
 - A position that is trailing shows a marker on its card in Open Positions.
 - Turning it off leaves the Stop Loss where it last moved to.
 
+![Trailing SL in the mobile trade form](./images/mobile-trailing-sl.png)
+
 Full mechanics are in
 [Web Interface: Trailing Stop Loss](web-interface-ui-ux-and-features.md#trailing-stop-loss).
 
@@ -268,6 +270,8 @@ When part of a position has been closed, its card shows the result:
 - **Realized PnL** — the profit or loss already booked by those closes.
 
 The position keeps its ID and open price, and the rest stays open.
+
+![Mobile position card](./images/mobile-position-card.png)
 
 > Closing from mobile always closes the **whole** position. To close part of one, use the
 > web terminal — see

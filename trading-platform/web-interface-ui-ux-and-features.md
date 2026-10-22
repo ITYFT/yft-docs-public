@@ -489,7 +489,7 @@ Each asset row includes:
 
 ## Trade Form (Extended View)
 
-![AD_4nXfKiaI6SfxiJhQwkC1T0b36fhmCeq_YHtV814i5oB9sXZw6jxzpYcQ09fWVpkXj1TI0dh1lmNzXa6ydGIJKpP242Q3IfY8QG49mOqWTQsGnA4_Jw81rugoDE0VWf6T1dFxtw7KNVw](./images/581b95f592e934006ef7c2e0eaba12e0.png)
+![Trade form, extended view](./images/trade-form-extended.png)
 
 ### What Is the Trade Form?
 
@@ -612,7 +612,7 @@ Each price input field includes multiple format options:
 
 ## TP / SL & Lock Risk Feature
 
-![AD_4nXdqJObu_MChmdG4C8snw0dnzMdzOPedR_M94-7cQpZVoLW-bNVAm2nIyb6SsN3pdYSiRLRJQWSsbL84OZq5oDTr80bxMapts34sj6yqVi1_d4eu6_Y-G4wjLpzIKHIEb-l2I4MYug](./images/67c2bc204e6aa2b8ace981ffebff415c.png)
+![TP, SL, Trail and Lock Risk toggles](./images/tpsl-lock-risk-trail.png)
 
 ### What is TP/SL & Lock Risk?
 
@@ -1023,7 +1023,7 @@ These advanced tools give you more flexibility in managing open positions withou
 They live on the position row, in the **Action** column. Expand a grouped position to reach
 the controls for an individual position.
 
-![Position row actions](./images/position-row-actions.png)
+![Positions table with the Realized PnL column and the position actions](./images/positions-table-actions.png)
 
 ### Reverse Position
 
