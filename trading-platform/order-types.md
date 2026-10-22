@@ -40,3 +40,32 @@ Pending orders can remain active for a specified period or until manually cancel
       - Useful for traders who want their order to expire automatically after a specific period, aligning with their strategy.
 
 These time validity options give traders complete control over their pending orders, ensuring flexibility and precision in execution.
+## Trailing Stop Loss
+
+A trailing stop is not a separate order type — it is a Stop Loss that the engine moves for
+you, and it can be attached to any position, and to any pending order so that it applies to
+the position that order opens.
+
+**How the distance is set.** Trailing always requires a Stop Loss. The gap between that
+Stop Loss and the current price is measured once, at the moment trailing is switched on,
+and then held fixed.
+
+**How it moves.**
+
+| Position | Price moves | The stop |
+| --- | --- | --- |
+| Buy | Up to a new high | Follows up, keeping the same distance below |
+| Buy | Down | Stays put |
+| Sell | Down to a new low | Follows down, keeping the same distance above |
+| Sell | Up | Stays put |
+
+Only a new best price moves the stop; movement inside the range already seen does nothing,
+and the stop is never moved backwards. When price reaches it the position closes as an
+ordinary Stop Loss exit.
+
+**Together with other features.** A partial close does not disturb trailing — it keeps
+running on the volume that is left. Turning trailing off leaves the Stop Loss at the level
+it last reached.
+
+See [Web Interface: Trailing Stop Loss](web-interface-ui-ux-and-features.md#trailing-stop-loss)
+for how it looks in the terminal.

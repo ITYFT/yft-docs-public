@@ -6,64 +6,66 @@ Each message exchanged over the TCP socket is a JSON object adhering to the foll
 
 ```json
 {
-  "messageid": "string",
-  "messagetype": {
+  "message_id": "string",
+  "message_type": {
     // Message type content
   }
 }
 ```
 
-| Name         | Type                      | Desc                                                                                                                                                                |
-|--------------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Message id   | String                    | A unique identifier for the message, represented as a string. This ID can be used for tracking messages, correlating requests and responses, or debugging purposes. |
-| Message type | YftIntegrationMessageType | object or string that specifies the type of the message and contains any associated data. The  message_type  field can be one of the following:                     |
+All keys and all enum values on this socket are **snake_case**.
+
+| Name | Type | Desc |
+| --- | --- | --- |
+| message_id | String | A unique identifier for the message. Use it to track messages, correlate requests and responses, or debug. |
+| message_type | YftIntegrationMessageType | Object or string specifying the type of the message and carrying its data. It can be one of the following. |
 
 ## Message Types
 
-### ClientMessage
+### client_message
 
-Represents a message sent from the client to the server. The structure includes client-specific data encapsulated within the [`ClientMessage`](client-messages-spec.md) object.
+Represents a message sent from the client to the server. The structure includes client-specific data encapsulated within the [`client_message`](client-messages-spec.md) object.
 
 ```json
 {
-  "messageid": "string",
-  "messagetype": {
-    "clientmessage": //client message contract
+  "message_id": "string",
+  "message_type": {
+    "client_message": {} // client message contract
   }
 }
 ```
 
-### ServerMessage
+### server_message
 
-Represents a message sent from the server to the client. This message type contains server-specific data within the [`ServerMessage`](server-messages-spec.md) object.
+Represents a message sent from the server to the client. This message type contains server-specific data within the [`server_message`](server-messages-spec.md) object.
 
 ```json
 {
-  "messageid": "string",
-  "messagetype": {
-    "servermessage": //client message contract
+  "message_id": "string",
+  "message_type": {
+    "server_message": {} // server message contract
   }
 }
 ```
 
-### Ping
+### ping
 
-The server sends a heartbeat message to check the client's availability. The client **must** respond with a `Pong` message; otherwise, the server may disconnect the client.
+The server sends a heartbeat message to check the client's availability. The client **must** respond with a `pong` message; otherwise, the server may disconnect the client.
 
 ```json
 {
-  "messageid": "test",
-  "messagetype": "Ping"
+  "message_id": "test",
+  "message_type": "ping"
 }
 ```
 
-### Pong
+### pong
 
-A response to a `Ping` message, indicating that the sender is active and the connection is alive.
+A response to a `ping` message, indicating that the sender is active and the connection is alive.
 
 ```json
 {
-  "messageid": "test",
-  "messagetype": "Pong"
+  "message_id": "test",
+  "message_type": "pong"
 }
 ```

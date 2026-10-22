@@ -246,6 +246,35 @@ Your full control center for trading, right at your fingertips.
 - Great for staying focused - only keep what’s relevant on display.
 - Keep your trading environment clean, especially when managing multiple trades.
 
+### Trailing Stop Loss
+
+A trailing stop follows the market for you: as price moves in your favour the Stop Loss is
+dragged along behind it, and when price turns it stays where it is. It never moves
+backwards.
+
+- Switch on **Trailing SL** in the trade form, next to Stop Loss.
+- Trailing always needs a Stop Loss — the level you set defines the distance the stop keeps from price, measured once when you turn trailing on.
+- A position that is trailing shows a marker on its card in Open Positions.
+- Turning it off leaves the Stop Loss where it last moved to.
+
+Full mechanics are in
+[Web Interface: Trailing Stop Loss](web-interface-ui-ux-and-features.md#trailing-stop-loss).
+
+### Partially Closed Positions
+
+When part of a position has been closed, its card shows the result:
+
+- **Partial Close** — how much volume was closed, in lots and as a percentage of the original size.
+- **Realized PnL** — the profit or loss already booked by those closes.
+
+The position keeps its ID and open price, and the rest stays open.
+
+> Closing from mobile always closes the **whole** position. To close part of one, use the
+> web terminal — see
+> [Web Interface: Partial Close](web-interface-ui-ux-and-features.md#partial-close).
+
+> Reverse Position is a web terminal feature and is not available on mobile.
+
 ## Trade Form – Simple, Precise, Powerful
 
 ![AD_4nXerskiqQMhGdcH1NxKEJ7EJrkjdHv4mPDjCBzaOiRZCjQAj2Fg8DHq5OkEN-JBVlj_xmqQAlKdjiQg45Lyw4QN9szsi3mn-dNYHEeunZkIHSX_XWY8Lrnd4MXVOiu1HXebBuyO0yg](./images/f3764cd91b15804c4ab88677357d79a1.png)

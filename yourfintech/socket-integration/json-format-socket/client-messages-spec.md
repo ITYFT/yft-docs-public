@@ -2,24 +2,28 @@
 
 The `YftJsonIntegrationClientMessage` enum defines the different types of messages that the client can send to the server. Each message type corresponds to specific information or events that the server will handle.
 
-Message Types:
+Message types:
 
-- AuthRequest
+- `auth_request`
 
-## AuthRequest
+## auth_request
 
-The `AuthRequest` message communicates the outcome of an authentication attempt by the client.
+The `auth_request` message authenticates the client against the socket. The server replies
+with [`auth_result`](server-messages-spec.md#auth_result).
 
 ```json
 {
-  "messageid": "test",
-  "messagetype": {
-    "clientmessage": {
-      "authrequest": {
-        "secretkey": "secret"
+  "message_id": "test",
+  "message_type": {
+    "client_message": {
+      "auth_request": {
+        "secret_key": "secret"
       }
     }
   }
 }
-
 ```
+
+| Field | Type | Description |
+| --- | --- | --- |
+| secret_key | String | The integration secret key issued for this connection. |
