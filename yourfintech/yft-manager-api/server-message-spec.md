@@ -217,6 +217,12 @@ When an operation fails, the `error` field in the response will contain one of t
 | `reciever_account_disabled`                 | The receiving account in a transfer is disabled.                       |
 | `convert_id_error`                          | An error occurred while converting a numeric ID to a UUID.             |
 | `sqlx_error`                                | An internal database error occurred.                                   |
+| `forbidden`                                 | The authenticated client is not allowed to act on this entity.         |
+| `trailing_sl_requires_sl_price`             | A trailing stop loss was requested, or is already active, without an `sl_price` in the same request. |
+| `invalid_trailing_sl_offset`                | The trailing stop loss offset derived from `sl_price` is zero or negative. |
+| `account_under_stop_out`                    | The account is currently being liquidated by stop-out; the operation is rejected. |
+| `remaining_lots_below_minimum`              | The volume left after a partial close would be above zero but below the instrument's minimum operation volume. |
+| `lots_to_close_exceeds_current`             | `lots_to_close` is greater than the position's remaining volume.       |
 
 ## AuthResponse
 

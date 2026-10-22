@@ -118,7 +118,10 @@ Represents an active position with all its details.
   "profitbidask": "BidAskJsonModel",
   "swaps": "PositionSwapJsonModel or null",
   "lotsamount": "double",
-  "commission": "double"
+  "commission": "double",
+  "is_trailing_sl": "bool",
+  "realized_pl": "double or null",
+  "initial_lots_amount": "double"
 }
 ```
 
@@ -141,7 +144,7 @@ Represents an active position with all its details.
 | open_date              | Timestamp of the position opening (Unix ms).                                                     |
 | open_process_id        | Process ID for the opening of the position.                                                      |
 | close_date             | Timestamp when the position was closed, if applicable.                                           |
-| close_reason           | Reason for closing the position. Enum: ClientCommand; StopOut; TakeProfit; StopLoss; ForceClose; |
+| close_reason           | Reason for closing the position. Enum: ClientCommand; StopOut; TakeProfit; StopLoss; ForceClose; PartialClose; |
 | asset_close_price      | Close price of the asset if the position is closed.                                              |
 | asset_close_bid_ask    | Bid/ask price of the asset when the position was closed, as defined by  BidAskJsonModel .        |
 | close_process_id       | Process ID associated with the position closure, if applicable.                                  |
@@ -149,8 +152,11 @@ Represents an active position with all its details.
 | margin_bid_ask         | Bid/ask prices relevant for margin, as defined by  BidAskJsonModel .                             |
 | profit_bid_ask         | Bid and ask prices relevant for profit, as defined by  BidAskJsonModel .                         |
 | swaps                  | List of swap details as defined by PositionSwapJsonModel .                                       |
-| lots_amount            | Total amount of lots in the position.                                                            |
+| lots_amount            | Remaining amount of lots in the position. After a partial close this is lower than `initial_lots_amount`. |
 | commission             | Commission fees charged for this position.                                                       |
+| is_trailing_sl         | `true` when a trailing stop loss is attached to the position. See [Position lifecycle features](../../position-lifecycle-features.md#trailing-stop-loss). |
+| realized_pl            | Profit or loss already realised by partial closes on this position, or `null` when nothing has been partially closed yet. |
+| initial_lots_amount    | Lots the position was opened with. Unchanged by partial closes, so `initial_lots_amount - lots_amount` is the volume closed so far. |
 
 ## Order
 
@@ -174,6 +180,8 @@ Represents a order, with all its details.
   "collateralcurrency": "string",
   "desireprice": "double",
   "ordertype": "PendingOrderType",
+  "positionid": "string or null",
+  "is_trailing_sl": "bool"
 }
 ```
 
@@ -197,6 +205,8 @@ Represents a order, with all its details.
 | collateral_currency    | Currency used as collateral for this position.                     |
 | desire_price           | Desired price for executing the position.                          |
 | order_type             | Type of order for the pending position; Enum: Stop, Limit; Market; |
+| position_id            | Position this order belongs to once executed, or `null` while it is still pending. |
+| is_trailing_sl         | `true` when the order carries a trailing stop loss that activates on the resulting position. |
 
 ## PositionSwapJsonModel
 

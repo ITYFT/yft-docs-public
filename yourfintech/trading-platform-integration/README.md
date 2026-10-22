@@ -1,5 +1,14 @@
 # Trading Platform Integration
 
+> **Scope note.** The `EngineIntegrationGrpcService` contract described in this section
+> does **not** carry the Partial Close, Trailing Stop Loss or Reverse Position features.
+> Its `ClosePositionGrpcRequest` has no volume argument, and neither its position models
+> nor its `EngineClosePositionReason` enum expose trailing or partial-close state.
+> Integrators who need those features should use the Integration API,
+> the [Socket Integration](../socket-integration/README.md) or the
+> [Yft Manager API](../yft-manager-api/README.md) instead — see
+> [Position lifecycle features](../position-lifecycle-features.md).
+
 ## Introduction
 
 This document provides comprehensive guidance on integrating with the Yourfintech platform via gRPC and Protocol Buffers (proto3). The platform allows for managing accounts, executing cross-margin trades, placing pending orders, and configuring trading settings.

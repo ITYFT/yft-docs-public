@@ -2,6 +2,7 @@
 
 * [Yourfintech](yourfintech.md)
 * [Trading Platform Overview](trading-platform-overview.md)
+* [Position lifecycle features](position-lifecycle-features.md)
 * [Socket Integration](socket-integration/README.md)
   * [JSON format socket](socket-integration/json-format-socket/README.md)
     * [General messages structure](socket-integration/json-format-socket/general-messages-structure.md)

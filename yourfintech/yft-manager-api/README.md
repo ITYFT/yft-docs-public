@@ -20,4 +20,3 @@ The server implements a lightweight **JSON-over-TCP** protocol with fully typed 
 * [Server message spec](server-message-spec.md)
 * [Client Messages spec](client-messages-spec.md)
 * [Root Models](root-models.md)
-* [Calculations](calculations.md)

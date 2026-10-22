@@ -169,7 +169,10 @@ This message is used to request a list of currently open trading positions. The 
 
 #### Description
 
-Closes an open trading position (full exit from the market). The system calculates PnL based on the current market price.
+Closes an open trading position. The system calculates PnL based on the current market price.
+
+Omit `lots_to_close` to exit the market completely. Supply it to close only part of the
+volume — see [Partial Close](../position-lifecycle-features.md#partial-close).
 
 ***
 
@@ -186,6 +189,7 @@ Closes an open trading position (full exit from the market). The system calculat
         "position_id": { "uuid": "string" }, // Or { "id": number }
         "process_id": "string",
         "force": true, // Or false or null
+        "lots_to_close": 0.5 // Or null for a full close
       }
     }
   }
@@ -203,6 +207,7 @@ Closes an open trading position (full exit from the market). The system calculat
 | `position_id` | `UUID\|Numeric ID` | Yes      | ID of the position to close.                                                                                                                                                                                                                                                                                                                                                                              |
 | `process_id`  | `string`           | Yes      | Unique ID to track the close request (idempotency).                                                                                                                                                                                                                                                                                                                                                       |
 | `force`       | `bool`             | No       | **`false`**: Normal close with full validations. **`true`**: Admin override; bypasses `account_trading_disabled` gate (core checks still apply). **`none`**: Normal behaviour. |
+| `lots_to_close` | `float`          | No       | Volume to close. Omitted or `null` closes the whole position. A value equal to the remaining volume is executed as a full close. |
 
 ***
 
@@ -211,11 +216,28 @@ Closes an open trading position (full exit from the market). The system calculat
 * If the position exists and is open, it will be closed using the best available market price.
 * If `position_id` is invalid or already closed — an error will be returned.
 
+**With `lots_to_close` set (partial close):**
+
+* The position keeps its `id` and stays open with the remaining volume. No new position is created.
+* `lots_amount` drops by the closed volume; `initial_lots_amount` stays as it was at open.
+* The realised result is accumulated into `realized_pl`, and settled swap into `realized_swap`.
+* A separate closing order is created for the closed slice, with `is_close: true` and the opposite side.
+* A trailing stop loss attached to the position stays attached and keeps tracking the reduced volume.
+
+**Rejections specific to a partial close:**
+
+| Condition | Error |
+| --- | --- |
+| `lots_to_close` greater than the remaining volume | `lots_to_close_exceeds_current` |
+| `lots_to_close` below the instrument's minimum operation volume | `lots_too_low` |
+| The remainder would be above zero but below the instrument's minimum operation volume | `remaining_lots_below_minimum` |
+| The account is being liquidated by stop-out | `account_under_stop_out` |
+
 ## UpdatePosition
 
 #### Description
 
-Updates parameters (SL/TP, metadata) of an **open** position.
+Updates parameters (SL/TP, trailing stop loss, metadata) of an **open** position.
 
 ***
 
@@ -239,7 +261,8 @@ Updates parameters (SL/TP, metadata) of an **open** position.
             "key1": "value1",
             "key2": "value2"
           }
-        } | null
+        } | null,
+        "is_trailing_sl": true // Or false or null
       }
     }
   }
@@ -259,6 +282,33 @@ Updates parameters (SL/TP, metadata) of an **open** position.
 | `tp_price`    | float              | ❌        | New take-profit value (optional).                            |
 | `sl_price`    | float              | ❌        | New stop-loss value (optional).                              |
 | `metadata`    | object             | ❌        | Optional metadata [Metadata Structure](#metadata-structure). |
+| `is_trailing_sl` | bool            | ❌        | `true` turns the trailing stop loss on, `false` turns it off, `null`/omitted leaves the current mode as it is. See the behaviour notes below. |
+
+***
+
+#### Trailing stop loss behaviour
+
+`is_trailing_sl` and `sl_price` are evaluated together:
+
+| `is_trailing_sl` | Result |
+| --- | --- |
+| `true` | Trailing is enabled. `sl_price` is **required** in the same request; the offset is derived from it. |
+| `false` | Trailing is disabled. `sl_price` keeps whatever value the request sets. |
+| `null` / omitted | The current mode is kept. If the position already trails, `sl_price` is **required** and the offset is recalculated from it. |
+
+The offset is `|current close price − sl_price|`, rounded to the instrument's precision,
+where the close price is the bid for a buy position and the ask for a sell position.
+It is fixed at the moment trailing is enabled and is reported back as `trailing_sl_offset`.
+
+| Condition | Error |
+| --- | --- |
+| Trailing requested or already active without `sl_price` | `trailing_sl_requires_sl_price` |
+| The resulting offset is zero or negative | `invalid_trailing_sl_offset` |
+
+Once enabled, the engine moves `sl_price` on every price update that sets a new best
+price in the position's favour — up for a buy, down for a sell — always keeping the
+offset. The stop never moves backwards. Full mechanics:
+[Trailing Stop Loss](../position-lifecycle-features.md#trailing-stop-loss).
 
 ## GetLastPrices
 
@@ -425,7 +475,8 @@ Sends a request to create a new trading order. The order can be of type `Market`
         "metadata": { "key": "value" } | null,
         "order_type": "market" | "limit" | "stop",
         "desire_price": "number (f64)" | null,
-        "process_id": "string (uuid)"
+        "process_id": "string (uuid)",
+        "is_trailing_sl": true | false | null
       }
     }
   }
@@ -449,6 +500,7 @@ Sends a request to create a new trading order. The order can be of type `Market`
 | `order_type`   | `"market"` \| `"limit"` \| `"stop"` | Yes      | [Order type](root-models.md#managerapiordertype). |
 | `desire_price` | `float` or `null`                   | No       | Target price for Limit or Stop orders. Ignored for Market.                              |
 | `process_id`   | `string` (UUID)                     | Yes      | Unique ID to track this request (idempotency).                                          |
+| `is_trailing_sl` | `bool` or `null`                  | No       | `true` attaches a trailing stop loss to the position this order opens. Requires `sl_price` in the same request. |
 
 ***
 
@@ -512,7 +564,8 @@ The `UpdateOrder` message is used to modify the parameters of an existing pendin
         "metadata": {
           "mode": "merge" | "update",
           "metadata": { "key": "value" }
-        } | null
+        } | null,
+        "is_trailing_sl": true | false | null
       }
     }
   }
@@ -532,6 +585,7 @@ The `UpdateOrder` message is used to modify the parameters of an existing pendin
 | `desire_price` | float              | ❌        | New desired execution price (for limit or stop orders).                        |
 | `lots_amount`  | float              | ❌        | New order size. If `null`, lot amount remains unchanged.                       |
 | `metadata`     | object             | ❌        | Optional metadata update block. See [Metadata Structure](#metadata-structure). |
+| `is_trailing_sl` | bool             | ❌        | `true` attaches a trailing stop loss to the position this order opens, `false` removes it, `null` leaves it unchanged. |
 
 ***
 

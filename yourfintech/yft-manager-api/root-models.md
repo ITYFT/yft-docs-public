@@ -439,7 +439,12 @@ It includes information such as order metadata, bid/ask prices used in different
     }
   ],
   "create_date": 0,
-  "update_date": 0
+  "update_date": 0,
+  "is_trailing_sl": false,
+  "trailing_sl_offset": 0.0,
+  "realized_pl": 0.0,
+  "initial_lots_amount": 0.0,
+  "realized_swap": 0.0
 }
 ```
 
@@ -452,13 +457,13 @@ It includes information such as order metadata, bid/ask prices used in different
 | `account_id`    | `object (`[`YftManagerApiIdFull`](#yftmanagerapiidfull)`)` | ID of the account associated with the position.          |
 | `asset_pair`    | `string`                                                   | Traded asset pair (e.g. "EURUSD").                       |
 | `collateral`    | `string`                                                   | Collateral currency used (e.g. "USD").                   |
-| `lots_amount`   | `float`                                                    | Total number of lots.                                    |
+| `lots_amount`   | `float`                                                    | Remaining lots for active positions; original lots for closed history. |
 | `is_buy`        | `bool`                                                     | `true` if this is a buy position, otherwise `false`.     |
 | `sl_price`      | `float` (opt)                                              | Stop-loss price, if set.                                 |
 | `tp_price`      | `float` (opt)                                              | Take-profit price, if set.                               |
 | `metadata`      | `object`                                                   | Arbitrary key-value data.                                |
 | `order_id`      | `object (`[`YftManagerApiIdFull`](#yftmanagerapiidfull)`)` | Identifier of the opening order.                         |
-| `pl`            | `number`                                                   | Current profit or loss calculated.                       |
+| `pl`            | `number`                                                   | Current P\\&L for active positions. For closed history this is the lifetime realised net P\\&L, including partial closes, the final close, fees and swaps. |
 | `margin_bidask` | [`ManagerApiBidAsk`](#managerapibidask)                                         | Bid/ask used for margin calculation.                     |
 | `open_bidask`   | [`ManagerApiBidAsk`](#managerapibidask)                                         | Price when the position was opened.                      |
 | `profit_bidask` | [`ManagerApiBidAsk`](#managerapibidask)                                         | Price used for PnL calculation.                          |
@@ -467,6 +472,14 @@ It includes information such as order metadata, bid/ask prices used in different
 | `swaps`         | `array`                                                    | List of swap entries applied.                            |
 | `create_date`   | `integer` (timestamp)                                      | Timestamp in milliseconds since epoch (position created) |
 | `update_date`   | `integer` (timestamp)                                      | Timestamp in milliseconds since epoch (last update)      |
+| `is_trailing_sl` | `bool`                                                    | `true` when a trailing stop loss is attached to the position. |
+| `trailing_sl_offset` | `float` (opt)                                         | Distance the trailing stop keeps behind the best price reached, in instrument price units. `null` when trailing is off. |
+| `realized_pl`   | `float` (opt)                                              | P\\&L already realised by partial closes while the position is active. For terminal closed history this is the lifetime realised net P\\&L, i.e. the same value as `pl`. |
+| `initial_lots_amount` | `float`                                              | Lots the position was opened with. Partial closes do not change it. |
+| `realized_swap` | `float` (opt)                                              | Swap charges already settled by partial closes. |
+
+> Partial Close, Trailing Stop Loss and Reverse Position are described end to end in
+> [Position lifecycle features](../position-lifecycle-features.md).
 
 ## ManagerApiTrade
 
@@ -723,6 +736,7 @@ Represents a trading order submitted by a trader, including its type, status, an
   "order_status": ManagerApiOrderStatus,
   "position_id": { "uuid": "string", "num_id": "number | null" },
   "is_close": bool,
+  "is_trailing_sl": bool,
 }
 ```
 
@@ -749,6 +763,7 @@ Represents a trading order submitted by a trader, including its type, status, an
 | `order_status`  | [ManagerApiOrderStatus](#managerapiorderstatus)            | Current status of the order (e.g. Pending, Canceled, Executed, Rejected).                                                                              |
 | `position_id`   | `object (`[`YftManagerApiIdFull`](#yftmanagerapiidfull)`)` | Identifier of the trader's position associated with this order after execution, if any.                                                                |
 | `is_close`      | `bool`                                                     | `is_close` — flag indicating the order is created to close an existing position, not to open or modify one.                                            |
+| `is_trailing_sl` | `bool`                                                    | `true` when the order carries a trailing stop loss that activates on the position it opens.                                                            |
 
 ## ManagerApiOrderType
 

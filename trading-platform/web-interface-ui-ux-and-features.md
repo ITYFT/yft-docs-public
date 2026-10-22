@@ -669,6 +669,51 @@ Configurable by:
 - Combine TP and SL to structure risk-to-reward ratios (e.g., 1:2)
 - Use Equity % inputs for portfolio-style money management
 
+## Trailing Stop Loss
+
+### What Is a Trailing Stop?
+
+A trailing stop is a Stop Loss that follows the market for you. As price moves in your
+favour it is dragged along behind, locking in more of the move; when price turns against
+you it stays where it is. It never moves backwards.
+
+![Trailing stop in the trade form](./images/trailing-stop-trade-form.png)
+
+### Turning It On
+
+Enable **Trail** in the trade form, next to Stop Loss, Lock Risk and Take Profit.
+
+- **Trail always needs a Stop Loss.** Switching Trail on activates Stop Loss with it — a trailing stop with nowhere to start from is rejected.
+- The Stop Loss you set defines the **distance** the stop will keep from price. That gap is measured once, when you turn trailing on, and then stays fixed.
+- Set it the same way as a normal Stop Loss — by Price, Points, PnL or Equity %.
+- Trail can be set when opening a position, turned on later on an open position, or set on a pending order so it applies to the position that order opens.
+
+### How It Moves
+
+| Your position | Price moves | The stop |
+| --- | --- | --- |
+| Buy / Long | Up to a new high | Follows up, staying the same distance below |
+| Buy / Long | Down | Stays put |
+| Sell / Short | Down to a new low | Follows down, staying the same distance above |
+| Sell / Short | Up | Stays put |
+
+Only a **new best price** moves the stop. Ordinary fluctuation inside the range already
+seen does nothing. When price finally reaches the stop, the position closes as a normal
+Stop Loss exit.
+
+### Good to Know
+
+- Turning Trail off leaves the Stop Loss sitting where it last moved to — it simply stops following.
+- Changing the Stop Loss while trailing is active **re-measures the distance** from the current price.
+- A partial close does not disturb trailing: it keeps running on the volume that is left.
+- Widening the distance does not pull the stop back; it only affects how far behind future moves are tracked.
+
+### Tips
+
+- Give the stop room to breathe — too tight a distance and ordinary noise closes you out.
+- Use it to ride a trend without having to watch the chart or move the stop by hand.
+- Combine it with Partial Close: bank part of the position, let the trailing stop run the rest.
+
 ## Order Types
 
 ### What Are Order Types?
@@ -973,7 +1018,12 @@ Ideal for fast action in volatile markets, profit securing, or loss control.
 
 These advanced tools give you more flexibility in managing open positions without needing to open new trades manually. They're ideal for active traders who want fast reaction tools during volatile moves or strategy shifts.
 
-→ Think of these as “power tools” for live trade management - double down, flip your bias, or scale out.
+→ Think of these as "power tools" for live trade management - double down, flip your bias, or scale out.
+
+They live on the position row, in the **Action** column. Expand a grouped position to reach
+the controls for an individual position.
+
+![Position row actions](./images/position-row-actions.png)
 
 ### Double Up
 
@@ -992,11 +1042,26 @@ Use when:
 
 ### Reverse Position
 
-Automatically closes your current position and opens a new position in the opposite direction with the same size.
+Closes your current position and opens a new one in the opposite direction.
 
-- If you’re long 0.50 lots, Reverse will close that and open 0.50 lots short
-- Executed instantly at market price
-- Efficient for reacting quickly to market reversals or news
+![Reverse position dialog](./images/reverse-position-dialog.png)
+
+The dialog shows exactly what you are about to do — `SELL 0.12 → BUY 0.12 lots` — along
+with the market price, the profit or loss the close will realise, the new position, and
+the total cost of the switch.
+
+- **Size is adjustable.** It defaults to the full position, but the slider and lot input let you flip into a smaller one.
+- **Protection** decides what the new position gets:
+  - **None** — the new position opens bare, with no Stop Loss or Take Profit.
+  - **1R : 2R** — a ready-made one-to-two risk-reward pair.
+  - **Custom** — set Stop Loss and Take Profit yourself, by Price, Points, PnL or Equity %, and switch on Trailing SL for the new position if you want it.
+
+![Custom protection on reverse](./images/reverse-position-custom-protection.png)
+
+Two settings change how Reverse behaves — both under **Settings → Trade**:
+
+- **One click reverse position** — skip the dialog and reverse immediately.
+- **Copy TP/SL on reverse** — carry the current Take Profit and Stop Loss across to the reversed position, flipped to suit the new direction, so the original risk-reward ratio is preserved.
 
 Use when:
 
@@ -1004,20 +1069,39 @@ Use when:
 - A support/resistance break invalidates your setup
 - You want to avoid manual closing + new order delays
 
+> Reverse is a close followed by an opening order, not a single switch. The close books
+> its profit or loss, and the position you end up with is a **new** position with its own
+> ID — it does not inherit the original's history.
+
 ### Partial Close
 
 Close a portion of your current position, keeping the rest open.
 
-- Available in the position action panel
-- Enter the exact lot size or percentage to close
-- Remaining portion stays live
-- PnL is booked for the closed portion only
+![Partial close dialog](./images/partial-close-dialog.png)
+
+- Enter the exact lot size, or use the 0 / 25 / 50 / 75 / 100% slider
+- The remaining portion stays open under the **same position**, with the same ID and open price
+- PnL is booked for the closed portion only, and shows up in the **Realized PnL** column of the positions table
+- **Est. Realized P&L** breaks the result down into Gross, allocated Swap and Commission before you commit
+- **Remaining after close** and **Est. Margin freed** tell you what you will be left holding and how much margin comes back
 
 Use when:
 
 - You want to secure profits but still ride the trend
 - You're scaling out as price nears a key level
 - You're reducing risk while keeping upside potential
+
+**What you cannot do:** close less than the instrument's minimum trade size, and leave
+behind a remainder smaller than that minimum. On an instrument with a 0.02 minimum, a
+0.03 lot position cannot be split at all — either side of the split would be too small.
+Close it in full instead.
+
+### Settings
+
+**Settings → Trade** holds the switches for all three, including a compact or extended
+layout for the partial close dialog.
+
+![Trade settings](./images/trade-settings-reverse-partial-close.png)
 
 ### Tips
 
