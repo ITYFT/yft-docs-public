@@ -259,6 +259,10 @@ backwards.
 
 ![Trailing SL in the mobile trade form](./images/mobile-trailing-sl.png)
 
+A position that is trailing shows a marker next to its Stop Loss on the card:
+
+![Mobile position card with a trailing stop](./images/mobile-position-trailing.png)
+
 Full mechanics are in
 [Web Interface: Trailing Stop Loss](web-interface-ui-ux-and-features.md#trailing-stop-loss).
 

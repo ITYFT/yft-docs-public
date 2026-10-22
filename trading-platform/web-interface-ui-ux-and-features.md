@@ -1025,6 +1025,11 @@ the controls for an individual position.
 
 ![Positions table with the Realized PnL column and the position actions](./images/positions-table-actions.png)
 
+In the list above: USD/JPY is an ordinary position, EUR/USD carries a trailing stop —
+marked by the dot next to its Stop Loss — and BTC/USD has been partially closed, so its
+**Realized PnL** column holds the booked result and its quantity carries a partial-close
+marker.
+
 ### Reverse Position
 
 Closes your current position and opens a new one in the opposite direction.
