@@ -564,7 +564,7 @@ Each risk field includes:
 
 ## Trade Form Mini
 
-![AD_4nXdcpmk3R0hExhcwm0cA9bP-8wmgCBZmRDielewerr7LD3XJe-Im35mChlsUMSpstY99iLFnBz03HCyuYA3s_t6dHg5pRKPSDzmW3H373xfHQUQUIE1RiIdq1mFUmK3nGtUkknYILg](./images/607ad783662ff68abacc90ca538dd478.png)
+![Trade form](./images/trade-form-extended.png)
 
 ### What is the Trade Form Mini?
 
@@ -724,7 +724,7 @@ Order Types define how and when your trade is executed. Your platform supports t
 
 ### 1. Market Order
 
-![AD_4nXcZ_NxYcWHSHMV_HtcZ3FSaXOQoSdjCDEUiMRXZY3j3o9PyIoH7-kcKmyU-xwfEtPBLTObLWMxekx0_uGqKbF2NLZCBek2qAo4b2TiqKTXPKCacwYNcxtWrdMBQb4PTr7ve-0Sd](./images/e64cc631ef415f8483d657ddfa4dd1e0.png)
+![Market order form](./images/trade-form-extended.png)
 
 "Execute now at the best available price"
 
@@ -742,7 +742,7 @@ Key Inputs:
 
 ### 2. Limit Order
 
-![AD_4nXc0xNsJ_2miZLFJfPEeZBewDW1UMh-Gb7SSXRXa_Fs3nAwVSR-hAfkEuG6eLdd90eTmCtBN8YJXjtrZhXGnhLutlyykVzxLoAbXrO4uM42Sx24Af2du7QP8J8GLZfC2Rpe-P1JN](./images/8ccf328d64dc6c6e8dcbf8db03b5fb45.png)
+![Limit order form](./images/order-type-limit.png)
 
 "Execute only at a specific price or better"
 
@@ -762,7 +762,7 @@ Key Inputs:
 
 ### Stop Order
 
-![AD_4nXf5jAhgvM3F0iuwYqYnD4qnppD2KZL0WoKRvP8nxLqwN_jp94_zwn4IkfYYmTNVYxgOFdxf2Qv5nkYTouE3-XFzdSrxuLu0Go2pcenFxFRqoW8aw06xlCDnF8TCJdgfjmo2o4EMww](./images/89dfc2397dc02816d87745a86bee57e1.png)
+![Stop order form](./images/order-type-stop.png)
 
 "Trigger a market order after a price threshold is hit"
 
@@ -954,7 +954,7 @@ Once a trade is open, you can still:
 
 ## Statistics Widget
 
-![AD_4nXdymZTOXU4wQpnVOfJt1_PATZXcb0Jo_106vN9hqje6O_S4lqWre0eGKzkbUAiSghWAbiEN0MqwkUYno1nZs7s_2ZzKl3wYaIYWtI2QY_UXK-MPmSLW7YkA5Tuppl9HK21r79NNiQ](./images/17831fdf6a3c0e421d5efb4f866db671.png)
+![Positions table](./images/positions-table-actions.png)
 
 What is the Statistics Widget?
 
